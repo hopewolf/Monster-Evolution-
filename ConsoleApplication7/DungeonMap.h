@@ -34,5 +34,6 @@ public:
 	int getType(int x,int y);
 	void display() ;
 	Monster & getMonster(int x,int y);
-	void display(int x, int y);
+	void display(int x, int y,char mode);
+
 };

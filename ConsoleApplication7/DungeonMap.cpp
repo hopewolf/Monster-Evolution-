@@ -3,30 +3,6 @@
 #include"DungeonMap.h"
 #include"Tools.h"
 using namespace std;
-//class DungeonPoint {
-//private:
-//	//PointType has 3 types of following :    
-//	// 1. Empyt = 0 ; 2. Monster = 1 3. barricade  
-//	int PointType;
-//	Monster monster;
-//public:
-//	static class Constant {
-//		const int Empyt = 0;
-//		const int Monster = 1;
-//		const int Barricade = 2;
-//	};
-//	int getPointType();
-//	DungeonPoint(int type);
-//};
-//class DungeonMap {
-//private:
-//	DungeonPoint mPoint[20][10];
-//public:
-//	DungeonMap();
-//	bool setLocationType(int NewPointType);
-//	void initial();
-//	bool setLocationType(int NewPointType, Monster newmonster);
-//};
 DungeonPoint::DungeonPoint()
 {
 	PointType = DungeonPoint::Constant::Empty;
@@ -72,6 +48,9 @@ bool DungeonMap::setLocationType(int x,int y,int NewPointType)
 void DungeonMap::CreateMap() {
 	srand((int)time(0));
 	int x, y;
+	x = 19;
+	y = random(10);
+	mPoint[x][y].setMonster(5);
 	for (int i = 1; i <= 4; i++)
 	{
 		for (int j = 0; j < 10; j++)
@@ -84,14 +63,6 @@ void DungeonMap::CreateMap() {
 					break;
 				}
 			}
-		}
-	}
-	while (1) {
-		x = random(20);
-		y = random(10);
-		if (mPoint[x][y].getPointType() == DungeonPoint::Constant::Empty) {
-			mPoint[x][y].setMonster(5);
-			break;
 		}
 	}
 }
@@ -121,29 +92,55 @@ void DungeonMap::display() {
 		cout << endl;
 	}
 }
-void DungeonMap::display(int x,int y) {
-	for (int i = 0; i < 10; i++)
+void DungeonMap::display(int x,int y,char mode) {
+	if (mode == '1')
 	{
-		for (int j = 0; j < 20; j++)
+	
+		for (int i = 0; i < 10; i++)
 		{
-			if (i == y&&j == x)
+			for (int j = 0; j < 20; j++)
 			{
-				cout << " $";
-				continue;
+				if (i == y&&j == x)
+				{
+					cout << " $";
+					continue;
+				}
+				if( (mPoint[j][i].getPointType() == DungeonPoint::Constant::Empty)|| (mPoint[j][i].getPointType() == DungeonPoint::Constant::Monster))
+				{
+					cout << " " << "#";
+				}
+				else {
+					cout << " *";
+				}
 			}
-			if (mPoint[j][i].getPointType() == DungeonPoint::Constant::Empty)
-			{
-				cout << " " << "#";
-			}
-			else if (mPoint[j][i].getPointType() == DungeonPoint::Constant::Monster)
-			{
-				cout << " " << mPoint[j][i].getMonster().ToString()[0];
-			}
-			else {
-				cout << " *";
-			}
+			cout << endl;
 		}
-		cout << endl;
+		return;
+	}
+	else {
+		for (int i = 0; i < 10; i++)
+		{
+			for (int j = 0; j < 20; j++)
+			{
+				if (i == y&&j == x)
+				{
+					cout << " $";
+					continue;
+				}
+				if (mPoint[j][i].getPointType() == DungeonPoint::Constant::Empty)
+				{
+					cout << " " << "#";
+				}
+				else if (mPoint[j][i].getPointType() == DungeonPoint::Constant::Monster)
+				{
+					cout << " " << mPoint[j][i].getMonster().ToString()[0];
+				}
+				else {
+					cout << " *";
+				}
+			}
+			cout << endl;
+		}
 	}
 }
 int DungeonMap::getType(int x,int y)

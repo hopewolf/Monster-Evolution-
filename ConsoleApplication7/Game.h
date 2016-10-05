@@ -15,8 +15,10 @@ private:
 	int startx, starty;
 	bool isFail;
 	int GameState;
+	char mode;
+
 public:
-	Game();
-	void next();
+	Game(char m);
+	bool next();
 
 };

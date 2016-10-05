@@ -14,13 +14,15 @@ private:
 	void CheckBag(int type);
 	vector<Monster> SearchBag(int type);
 	void deleteMonster(int type);
-	void displayBag();
+	
 	int x, y;
 
 public:
+	void displayBag();
 	Player();
 	bool hasEvolveMonster();
 	void SetName(string name);
+	void SetLocation(int nx, int ny);
 	int GetLevel()const;
 	int GetHealth()const;
 	string GetName()const;

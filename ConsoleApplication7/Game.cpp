@@ -1,9 +1,10 @@
 #include "stdafx.h"
 #include"Game.h"
-Game::Game()
+Game::Game(char m)
 {
+	mode = m;
 	GameState = 0;
-	cout << "Input player name you want:(default: Player1)" << endl;
+	cout << "Input player name you want:" << endl;
 	string Name;
 	cin >> Name;
 	if (!Name.empty())
@@ -14,12 +15,15 @@ Game::Game()
 	starty = p.getY();
 	cout << "Player " << Name << ", your adventure will begin now:" << endl;
 }
-void Game::next()
+bool Game::next()
 {
 	system("cls");
 	int x = p.getX();
 	int y = p.getY();
-	cout << x << " " << y << endl;
+	cout << "In this map, \"*\" means the location had been arrived, and the \"$\" means you."<< endl;
+
+	map.display(x, y,mode);
+//	cout << x << " " << y << endl;
 	if (map.getType(x, y) == DungeonPoint::Constant::Monster)
 	{
 		Monster& m = map.getMonster(x, y);
@@ -49,16 +53,31 @@ void Game::next()
 					GameState = -1;
 				}
 			}
+			else
+			{
+				cout << "You meet a monster of Skeletor, but you don't have an evolved monster! You will be sent back to your start point." << endl;
+				p.SetLocation(startx, starty);
+				system("pause");
+				return false;
+			}
 		}
 	}
-	map.display(x, y);
+	if (GameState!=0)
+		return true;
+	
 	string cmd;
 	while (1)
 	{
+		cout << "Please choose your choice of next move:" << endl;
+		cout << "1.w=Up  2.a=Left 3.s=Down 4.d=Right 5.v=Display your bag" << endl;
 		cin >> cmd;
 		if (cmd[0]=='w'||cmd[0] <= 'a'|| cmd[0] == 's'|| cmd[0] == 'd')
 		{
 			break;
+		}
+		else if (cmd[0] == 'v')
+		{
+			p.displayBag();
 		}
 		else
 		{
@@ -67,5 +86,5 @@ void Game::next()
 	}
 	p.move(cmd[0]);
 	map.setLocationType(x, y, DungeonPoint::Constant::marked);
-
+	return false;
 }

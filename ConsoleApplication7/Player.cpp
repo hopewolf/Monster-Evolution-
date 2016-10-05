@@ -42,11 +42,12 @@ int Player::getY()const
 
 bool Player::CatchMonster(const Monster& m)
 {
+	cout << "You meet a friendly monster!" << endl;
 	srand((int)time(0));
 	int Power = random(6) + 1;
 	cout << "PlayerPower: " << Power << " and the Monster's level is " << m.GetLevel() << endl;
 	if (Power >= m.GetLevel()) {
-		cout << Name << " Cathch a monster of " << m.ToString() << " ." << endl;
+		cout << Name << " Cathches a monster of " << m.ToString() << " ." << endl;
 		Bag.push_back(m);
 		CheckBag(m.GetType());
 		return true;
@@ -76,7 +77,7 @@ void Player::displayBag() {
 	}
 	if (EvolvedMonster.GetType ()!= Monster::Constant::Empty)
 	{
-		cout << "You have one evolved monster of "<<EvolvedMonster.ToString()<<"Health:" << EvolvedMonster.GetHealth() << " and Level: " << EvolvedMonster.GetLevel() << endl;
+		cout << "You have one evolved monster of "<<EvolvedMonster.ToString()<<": Health:" << EvolvedMonster.GetHealth() << " and Level: " << EvolvedMonster.GetLevel() << endl;
 	}
 }
 
@@ -90,9 +91,9 @@ bool Player::BattleMonster(Monster& m)
 		while (EvolvedMonster.GetHealth() > 0 && m.GetHealth() > 0)
 		{
 			EvolvedPower = random(6) + 1 + GetLevel()+Monster::Powermodifier(EvolvedMonster.GetType());
-			MonsterPower = random(6) + 1 + m.GetLevel();
+			MonsterPower = random(6) + 1 + m.GetLevel()+2;
 			cout << "New battle starts:" << endl;
-			cout << Name << "'s power is " << EvolvedPower << " and the health is " << EvolvedMonster.GetHealth() << "." << endl;
+			cout << "The evolved monster's power is " << EvolvedPower << " and the health is " << EvolvedMonster.GetHealth() << "." << endl;
 			cout << "The monster's power is " << MonsterPower << " and the health is " << m.GetHealth() << endl;
 			if (EvolvedPower == MonsterPower)
 			{
@@ -101,30 +102,30 @@ bool Player::BattleMonster(Monster& m)
 			}
 			else if (EvolvedPower > MonsterPower)
 			{
-				cout << Name << " wins this turn, the monster loses one health." << endl;
+				cout <<"The evolved monster  wins this turn, the monster loses one health." << endl;
 				m.SetHealth(m.GetHealth() - 1);
 			}
 			else if (EvolvedPower < MonsterPower)
 			{
-				Health--;
-				cout << "The monster wins this turn, " << Name << " loses one health." << endl;
+				EvolvedMonster.SetHealth(EvolvedMonster.GetHealth() - 1);
+				cout << "The monster wins this turn, evolved monster loses one health." << endl;
 			}
 		}
-		if (GetHealth() == 0)
+		if (EvolvedMonster.GetHealth() == 0)
 		{
 			cout << Name << " is defeated. Game Over!" << endl;
 			return false;
 		}
 		else
 		{
-			cout << "The monster is defeated, you can continues the game." << endl;
+			cout << "The boss was defeated. You win the game!" << endl;
 			return true;
 		}
 
 	}
 	
 	int PlayerPower,MonsterPower;
-	cout << "You meet with a monster!";
+	cout << "You meet with an unfriendly monster!";
 	while (GetHealth() > 0 && m.GetHealth() > 0)
 	{
 	
@@ -161,6 +162,10 @@ bool Player::BattleMonster(Monster& m)
 		return true;
 	}
 }
+void Player::SetLocation(int nx, int ny) {
+	x = nx;
+	y = ny;
+}
 void Player::CheckBag(int type)
 {
 	vector<Monster> total=SearchBag(type);
@@ -178,7 +183,7 @@ void Player::CheckBag(int type)
 		Monster newMonster(sumHealth, sumLevel, type,true);
 		EvolvedMonster = newMonster;
 	}
-	displayBag();
+	//displayBag();
 
 }
 void Player::deleteMonster(int type)
@@ -217,6 +222,7 @@ void Player::move(char type) {
 		if (y == 0)
 		{
 			cout << "You can't up, because there is a wall" << endl;
+			system("pause");
 		}
 		else
 		{
@@ -227,6 +233,7 @@ void Player::move(char type) {
 		if (y == 9)
 		{
 			cout << "You can't down, because there is a wall" << endl;
+			system("pause");
 		}
 		else
 		{
@@ -237,6 +244,7 @@ void Player::move(char type) {
 		if (x == 0)
 		{
 			cout << "You can't left, because there is a wall" << endl;
+			system("pause");
 		}
 		else
 		{
@@ -247,6 +255,7 @@ void Player::move(char type) {
 		if (x==19)
 		{
 			cout << "You can't down, because there is a wall" << endl;
+			system("pause");
 		}
 		else
 		{
