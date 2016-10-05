@@ -1,6 +1,8 @@
 #pragma once
 #include<string>
 using namespace std;
+const string  MonsterName[5] = { "Bugbear","Platypie","Emoo" ,"Octopod","Skeletor" };
+
 class Monster {
 private:
 	int MType;
@@ -9,6 +11,7 @@ private:
 	bool Evolved;
 	
 public:
+	static int 	Powermodifier(int type);
 	class Constant {
 		public:
 		static const int Bugbear = 1;
@@ -17,6 +20,7 @@ public:
 		static const int Octopod = 4;
 		static const int Skeletor = 5;
 		static const int Empty = -1;
+		
 	};
 
 
@@ -24,6 +28,7 @@ public:
 	void SetHealth(int NewHealth);
 	bool isEvloved() const;
 	Monster();
+	Monster(int health, int level, int type, bool evolve);
 	void  SetType(int NewMType);
 	int GetType()const;
 	int GetHealth()const;

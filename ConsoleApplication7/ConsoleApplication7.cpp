@@ -2,12 +2,16 @@
 //
 
 #include "stdafx.h"
-#include"DungeonMap.h"
+
+#include"Game.h"
 
 int main()
 {
-	DungeonMap map;
-	map.display();
+	Game g;
+	while (1)
+	{
+		g.next();
+	}
 	system("pause");
     return 0;
 }

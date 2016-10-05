@@ -146,7 +146,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DungeonMap.h" />
+    <ClInclude Include="Game.h" />
     <ClInclude Include="Monster.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Tools.h" />
@@ -154,6 +156,7 @@
   <ItemGroup>
     <ClCompile Include="ConsoleApplication7.cpp" />
     <ClCompile Include="DungeonMap.cpp" />
+    <ClCompile Include="Game.cpp" />
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="stdafx.cpp">

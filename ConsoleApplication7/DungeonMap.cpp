@@ -121,3 +121,36 @@ void DungeonMap::display() {
 		cout << endl;
 	}
 }
+void DungeonMap::display(int x,int y) {
+	for (int i = 0; i < 10; i++)
+	{
+		for (int j = 0; j < 20; j++)
+		{
+			if (i == y&&j == x)
+			{
+				cout << " $";
+				continue;
+			}
+			if (mPoint[j][i].getPointType() == DungeonPoint::Constant::Empty)
+			{
+				cout << " " << "#";
+			}
+			else if (mPoint[j][i].getPointType() == DungeonPoint::Constant::Monster)
+			{
+				cout << " " << mPoint[j][i].getMonster().ToString()[0];
+			}
+			else {
+				cout << " *";
+			}
+		}
+		cout << endl;
+	}
+}
+int DungeonMap::getType(int x,int y)
+{
+	return mPoint[x][y].getPointType();
+}
+Monster & DungeonMap::getMonster(int x, int y)
+{
+	return mPoint[x][y].getMonster();
+}

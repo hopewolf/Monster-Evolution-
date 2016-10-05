@@ -13,7 +13,7 @@ public :
 	public:
 		static const int Empty = 0;
 		static const int Monster = 1;
-		static  const int Barricade = 2;
+		static  const int marked = 2;
 	};
 	int getPointType();
 //	DungeonPoint(int Type);
@@ -26,10 +26,13 @@ public :
 class DungeonMap {
 private:
 	DungeonPoint mPoint[20][10];
+	void CreateMap();
 public:
 	DungeonMap();
 	bool setLocationType(int x,int y,int NewPointType);
-	void CreateMap();
 	bool setLocationMonster(int x,int y, Monster newmonster);
+	int getType(int x,int y);
 	void display() ;
+	Monster & getMonster(int x,int y);
+	void display(int x, int y);
 };
